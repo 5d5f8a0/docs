@@ -1,0 +1,89 @@
+import React, { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+
+export default function GPGKeyGenerator() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [gpgKey, setGpgKey] = useState('')
+  const [deviceInfo, setDeviceInfo] = useState({
+    wifiAddress: '74:0E:A4:24:34:E8',
+    bluetoothAddress: '74:0E:A4:33:53:3A',
+    modemFirmware: '4.02.05',
+    eid: '890490320070088826001317181711150'
+  })
+
+  const generateGPGKey = () => {
+    // This is a simplified representation of a GPG key
+    const key = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: OpenPGP.js v4.10.10
+Comment: https://openpgpjs.org
+
+xjMEYbWuAxYJKwYBBAHaRw8BAQdAZ7CHNUBq${Math.random().toString(36).substring(2, 15)}
+${Math.random().toString(36).substring(2, 15)}tJE${name} <${email}>wpwEExYKAD4F
+AmG1rgMCGwMFCQPCZwAFCwkIBwIDIgIBBhUKCQgLAgQWAgMBAh4BBhUIAgkKBRYC
+AwEAAAoJEHYHg${Math.random().toString(36).substring(2, 10)}H0EAf9${Math.random().toString(36).substring(2, 15)}
+${Math.random().toString(36).substring(2, 15)}zjMEYbWuAxYJKwYBBAHaRw8BAQdA
+${Math.random().toString(36).substring(2, 15)}wngEGBYKACAWIQT${Math.random().toString(36).substring(2, 15)}
+BQJhta4DAhsMBQkDwmcAAAoJEHYHg${Math.random().toString(36).substring(2, 10)}H0EA
+${Math.random().toString(36).substring(2, 15)}
+=s6jn
+-----END PGP PUBLIC KEY BLOCK-----`
+    setGpgKey(key)
+  }
+
+  return (
+    <Card className="w-full max-w-md mx-auto">
+      <CardHeader>
+        <CardTitle className="text-2xl">GPG Key Generator</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="John Doe"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="john@example.com"
+          />
+        </div>
+        <Button onClick={generateGPGKey} className="w-full">
+          Generate GPG Key
+        </Button>
+        {gpgKey && (
+          <div className="space-y-2">
+            <Label htmlFor="gpg-key">Generated GPG Key</Label>
+            <Textarea
+              id="gpg-key"
+              value={gpgKey}
+              readOnly
+              className="h-40 font-mono text-xs"
+            />
+          </div>
+        )}
+        <div className="space-y-2 pt-4 border-t">
+          <h3 className="font-semibold">Device Information</h3>
+          <div className="space-y-1 text-sm">
+            <p>Wi-Fi Address: {deviceInfo.wifiAddress}</p>
+            <p>Bluetooth: {deviceInfo.bluetoothAddress}</p>
+            <p>Modem Firmware: {deviceInfo.modemFirmware}</p>
+            <p>EID: {deviceInfo.eid}</p>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
