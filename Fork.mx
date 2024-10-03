@@ -1,0 +1,70 @@
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/0KhESu0nMTg
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+export default function Component() {
+  return (
+    <div className="max-w-lg mx-auto p-4">
+      <div className="border-b pb-4">
+        <h1 className="text-xl font-bold">Content directory changes</h1>
+        <p className="text-sm text-muted-foreground mt-2">
+          You may find it useful to copy this table into the pull request summary. There you can edit it to share links
+          to important articles or changes and to give a high-level overview of how the changes in your pull request
+          support the overall goals of the pull request.
+        </p>
+      </div>
+      <table className="w-full mt-4 text-sm">
+        <thead>
+          <tr>
+            <th className="text-left">Source</th>
+            <th className="text-left">Preview Production</th>
+            <th className="text-left">What Changed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="pt-2">Removed:</td>
+            <td className="pt-2">fpt</td>
+            <td className="pt-2" />
+          </tr>
+          <tr>
+            <td>n/a</td>
+            <td>
+              ghes@ 3.14 removed
+              <br />
+              3.13 3.12
+              <br />
+              3.11 3.10
+            </td>
+          </tr>
+          <tr>
+            <td className="pt-2">New file:</td>
+            <td className="pt-2" />
+            <td className="pt-2" />
+          </tr>
+          <tr>
+            <td className="text-blue-600 underline">
+              authentication/connecting-to-github-with-ssh/ssh-key-generator.tsx
+            </td>
+            <td />
+            <td />
+          </tr>
+        </tbody>
+      </table>
+      <div className="border-t pt-4 mt-4 text-sm">
+        <p>fpt: Free, Pro, Team</p>
+        <p>ghec: GitHub Enterprise Cloud</p>
+        <p>ghes: GitHub Enterprise Server</p>
+      </div>
+      <div className="mt-4 text-sm">
+        <p className="text-green-600 underline">Reply to this email directly, view it on GitHub, or unsubscribe.</p>
+        <p className="mt-2">You are receiving this because you authored the thread.</p>
+      </div>
+      <div className="mt-4" />
+      <div className="mt-4">
+        <div className="w-full aspect-video rounded-lg" />
+      </div>
+    </div>
+  )
+}
