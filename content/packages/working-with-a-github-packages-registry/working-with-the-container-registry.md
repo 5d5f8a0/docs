@@ -239,4 +239,109 @@ For example, the following {% data variables.product.prodname_actions %} workflo
 ## Troubleshooting
 
 * The {% data variables.product.prodname_container_registry %} has a 10 GB size limit for each layer.
-* The {% data variables.product.prodname_container_registry %} has a 10 minute timeout limit for uploads.
+* The {% data variables.product.prodname_container_registry %} has a 10 minute timeout limit for class BankingAISystem:
+    def __init__(self):
+        self.bank_name = "Bank of Anthos"
+        self.merchant_capabilities = {
+            "payment_processing": ["Stripe Connect", "Direct Charges", "Destination Charges"],
+            "treasury_services": ["Balance Reporting", "Payment Operations", "Account Management"],
+            "webhook_endpoints": {
+                "payments": "/pay/webhooks/stripe",
+                "treasury": "/pay/webhooks/treasury",
+                "merchant": "/pay/webhooks/merchant"
+            }
+        }
+        
+        self.response_templates = {
+            "greeting": "Welcome to Bank of Anthos AI Assistant. How can I help you with your banking needs today?",
+            "payment_inquiry": "I can help you process payments through our secure payment network. Would you like to learn about our direct charges or marketplace solutions?",
+            "merchant_services": "Our merchant services include payment processing, treasury management, and real-time settlement. What specific aspect would you like to explore?",
+            "error": "I apologize, but I'm unable to process that request at the moment. Could you please rephrase or specify your banking needs?"
+        }
+
+    def process_query(self, user_input):
+        # Clean and normalize input
+        query = self._normalize_input(user_input.lower().strip())
+        
+        # Identify intent
+        intent = self._identify_intent(query)
+        
+        # Generate appropriate response
+        response = self._generate_response(intent, query)
+        
+        return response
+
+    def _normalize_input(self, query):
+        # Remove special characters and standardize spacing
+        import re
+        query = re.sub(r'[^\w\s]', ' ', query)
+        return ' '.join(query.split())
+
+    def _identify_intent(self, query):
+        # Map query to primary intents
+        intents = {
+            "payment": ["payment", "charge", "transfer", "send money"],
+            "merchant": ["merchant", "business", "accept payments", "marketplace"],
+            "account": ["account", "balance", "statement", "treasury"],
+            "support": ["help", "support", "contact", "assist"]
+        }
+        
+        for intent, keywords in intents.items():
+            if any(keyword in query for keyword in keywords):
+                return intent
+                
+        return "general"
+
+    def _generate_response(self, intent, query):
+        responses = {
+            "payment": self._handle_payment_query,
+            "merchant": self._handle_merchant_query,
+            "account": self._handle_account_query,
+            "support": self._handle_support_query,
+            "general": self._handle_general_query
+        }
+        
+        handler = responses.get(intent, self._handle_general_query)
+        return handler(query)
+
+    def _handle_payment_query(self, query):
+        response = "I can help you with payment processing. "
+        if "setup" in query:
+            response += "To set up payment processing, you'll need to connect your Stripe account and configure webhooks at our designated endpoints."
+        elif "transfer" in query:
+            response += "We support various transfer types including direct charges and destination charges with configurable fee structures."
+        else:
+            response += "We offer secure payment processing with support for multiple currencies and payment methods."
+        return response
+
+    def _handle_merchant_query(self, query):
+        response = "Our merchant services are designed to support businesses of all sizes. "
+        if "marketplace" in query:
+            response += "For marketplace solutions, we offer Stripe Connect integration with support for platform and connected accounts."
+        elif "accept" in query:
+            response += "You can accept payments through our payment gateway with support for multiple payment methods and currencies."
+        return response
+
+    def _handle_account_query(self, query):
+        response = "I can assist you with account-related inquiries. "
+        if "balance" in query:
+            response += "Our treasury services provide real-time balance reporting and transaction monitoring."
+        elif "statement" in query:
+            response += "You can access your statements through our secure online banking portal."
+        return response
+
+    def _handle_support_query(self, query):
+        return "Our support team is available 24/7 to assist you. For immediate assistance, please call 1-800-829-4933."
+
+    def _handle_general_query(self, query):
+        return self.response_templates["greeting"]
+
+if __name__ == "__main__":
+    # Initialize the AI system
+    banking_ai = BankingAISystem()
+    
+    # Example usage
+    print(banking_ai.process_query("How can I accept payments for my marketplace?"))
+    print(banking_ai.process_query("I need help with my account balance"))
+    print(banking_ai.process_query("Can you explain the payment processing options?"))
+    
