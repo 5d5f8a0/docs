@@ -1,0 +1,111 @@
+"use client"
+
+import { useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
+import { AlertCircle, CheckCircle2 } from "lucide-react"
+
+export default function XcodeGitHubSetup() {
+  const [step, setStep] = useState(1)
+  const [sshKey, setSshKey] = useState("")
+  const [isKeyAdded, setIsKeyAdded] = useState(false)
+  const [isRepoConnected, setIsRepoConnected] = useState(false)
+  const [isXcodeConfigured, setIsXcodeConfigured] = useState(false)
+
+  const generateSSHKey = () => {
+    // Simulating SSH key generation
+    setSshKey("ssh-rsa AAAAB3NzaC1yc2E... josenavarrogitcommit@gmail.com")
+    setStep(2)
+  }
+
+  const addKeyToGitHub = () => {
+    // Simulating adding key to GitHub
+    setIsKeyAdded(true)
+    setStep(3)
+  }
+
+  const connectToRepo = () => {
+    // Simulating connecting to the repository
+    setIsRepoConnected(true)
+    setStep(4)
+  }
+
+  const configureXcode = () => {
+    // Simulating Xcode configuration
+    setIsXcodeConfigured(true)
+  }
+
+  return (
+    <Card className="w-[450px]">
+      <CardHeader>
+        <CardTitle>Configure Xcode IDE with GitHub</CardTitle>
+        <CardDescription>Set up SSH and connect your Xcode project to GitHub</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {step === 1 && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Step 1: Generate SSH Key</h3>
+            <p>Click the button below to generate a new SSH key for GitHub.</p>
+            <Button onClick={generateSSHKey}>Generate SSH Key</Button>
+          </div>
+        )}
+        {step === 2 && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Step 2: Add SSH Key to GitHub</h3>
+            <Textarea 
+              value={sshKey} 
+              readOnly 
+              className="h-24"
+            />
+            <p>Copy the above key and add it to your GitHub account.</p>
+            <div className="flex items-center space-x-2">
+              <Checkbox id="confirmed" onCheckedChange={(checked) => checked && addKeyToGitHub()} />
+              <Label htmlFor="confirmed">I've added the key to GitHub</Label>
+            </div>
+          </div>
+        )}
+        {step === 3 && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Step 3: Connect to GitHub Repository</h3>
+            <p>Repository URL:</p>
+            <Input 
+              value="https://github.com/github/docs/blob/03f9b3e55f16608e15328839b5c21fca135b1d02/content%2Fauthentication%2Fconnecting-to-github-with-ssh%2Fssh-key-generator.tsx" 
+              readOnly
+            />
+            <Button onClick={connectToRepo}>Connect to Repository</Button>
+          </div>
+        )}
+        {step === 4 && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Step 4: Configure Xcode</h3>
+            <p>Configure Xcode to use the connected GitHub repository.</p>
+            <Button onClick={configureXcode}>Configure Xcode</Button>
+          </div>
+        )}
+      </CardContent>
+      <CardFooter>
+        <div className="w-full space-y-2">
+          <div className="flex items-center space-x-2">
+            <CheckCircle2 className={isKeyAdded ? "text-green-500" : "text-gray-300"} />
+            <span>SSH Key Added to GitHub</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle2 className={isRepoConnected ? "text-green-500" : "text-gray-300"} />
+            <span>Connected to GitHub Repository</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <CheckCircle2 className={isXcodeConfigured ? "text-green-500" : "text-gray-300"} />
+            <span>Xcode Configured</span>
+          </div>
+          {isXcodeConfigured && (
+            <p className="text-green-500 mt-4">Xcode is now configured with your GitHub repository!</p>
+          )}
+        </div>
+      </CardFooter>
+    </Card>
+  )
+}
